@@ -86,10 +86,8 @@ export default function SignIn() {
     setErrors(newErrors);
     return valid;
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (validateForm()) {
       // Perform form submission logic here
       console.log('Form data submitted:', formData);
@@ -99,7 +97,6 @@ export default function SignIn() {
       toast.error('Form validation failed');
     }
   };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -167,7 +164,6 @@ export default function SignIn() {
                 error={!!errors.conformPassword}
                 helperText={errors.conformPassword}
               />
-
               <Grid item xs>
                 <Link href="#" variant="body2">
                   <Typography sx={{ textAlign: 'left', fontWeight: 700 }}>
@@ -209,7 +205,6 @@ export default function SignIn() {
                     <Item><img src={Apple} style={{height: '30px', width: '45px'}} ></img></Item>
                   </Grid>
                 </Grid>
-              
               </Box>
               <Grid container sx={{ marginTop: 3 }}>
                 <Grid item>
