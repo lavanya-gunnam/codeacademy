@@ -36,12 +36,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function SignIn() {
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    // ...
-  })
+ 
   const [formData, setFormData] = React.useState({
     email: '',
     password: '',
