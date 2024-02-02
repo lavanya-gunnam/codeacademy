@@ -23,8 +23,8 @@ function Herocomponent() {
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={8}>
             <Item sx={{ marginTop: 15 }}>
-              <Typography sx={{ fontSize: '1.37rem', fontWeight: '700', lineHeight: '1.2' }}>Skillsoft’s Codecademy</Typography>
-              <Typography sx={{ fontSize: {md:"4rem",sm:"2rem",xs:"2rem"}, fontWeight: {md:"700",sm:"600",xs:"500"}, lineHeight: '1.4' }}>Build a tech-forward team with training that sticks</Typography>
+              <Typography variant="h1">Skillsoft’s Codecademy</Typography>
+              <Typography variant="h2">Build a tech-forward team with training that sticks</Typography>
               <Typography sx={{ fontSize: '1.1rem', fontWeight: '400', lineHeight: '1.3' }}>Level up and level set your team’s technical skills with the most interactive training for programming and data skills.</Typography>
             </Item>
           </Grid>
