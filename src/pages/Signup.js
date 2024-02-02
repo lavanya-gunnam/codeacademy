@@ -1,8 +1,4 @@
-
-
 import * as React from 'react';
-import auth from '../firebase';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar';
@@ -19,9 +15,9 @@ import Google from '../../src/images/Google.png';
 import Facebook from '../../src/images/Facebook.png';
 import linkedin from '../../src/images/linkedin.png';
 import GitHub from '../../src/images/GitHub.png';
-import twitter from '../../src/images/twitter.png';
 import Apple from '../../src/images/Apple.png';
-
+import {  createUserWithEmailAndPassword } from "firebase/auth";
+import {auth} from '../firebase';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -34,40 +30,32 @@ const Item = styled(Paper)(({ theme }) => ({
     marginTop: 8,
   },
 }));
-
 export default function SignIn() {
- 
   const [formData, setFormData] = React.useState({
     email: '',
     password: '',
     conformPassword: '',
-    
   });
-
   const [errors, setErrors] = React.useState({
     email: '',
     password: '',
     conformPassword: '',
   });
-
   const validateForm = () => {
     let valid = true;
     const newErrors = { ...errors };
-
     if (!formData.email) {
       valid = false;
       newErrors.email = 'Email is required';
     } else {
       newErrors.email = '';
     }
-
     if (!formData.password) {
       valid = false;
       newErrors.password = 'Password is required';
     } else {
       newErrors.password = '';
     }
-
     if (!formData.conformPassword) {
       valid = false;
       newErrors.conformPassword = 'Conform Password is required';
@@ -77,12 +65,25 @@ export default function SignIn() {
     } else {
       newErrors.conformPassword = '';
     }
-
     setErrors(newErrors);
     return valid;
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    createUserWithEmailAndPassword(auth, formData.email, formData.password)
+      .then((userCredential) => {
+        console.log(userCredential)
+        // Signed up 
+        // const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        console.log(error);
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // ..
+      });
+  
     if (validateForm()) {
       // Perform form submission logic here
       console.log('Form data submitted:', formData);
@@ -92,15 +93,15 @@ export default function SignIn() {
       toast.error('Form validation failed');
     }
   };
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-
   return (
     <>
       <Navbar />
-      <Box sx={{ backgroundColor: '#fff0e5', py: 15 }}>
+      <Box sx={{ py: 15 }}>
         <Container maxWidth="xs">
           <Box
             sx={{
@@ -181,23 +182,23 @@ export default function SignIn() {
                 <Typography sx={{ textAlign: 'left', fontWeight: '700', marginBottom: '1rem', fontSize: '1rem', marginTop: 2 }}>Or log in using: </Typography>
               </Grid>
               <Box sx={{ flexGrow: 1 }}>
-                
+
                 <Grid container spacing={1} columns={16}>
                   <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item >  <img src={Google} style={{height: '30px', width: '31px'}} ></img></Item>
+                    <Item >  <img src={Google} style={{ height: '30px', width: '31px' }} ></img></Item>
                   </Grid>
                   <Grid item xs={2.6} md={3} sm={2.2}>
-                <Item><img src={Facebook} style={{height: '30px', width: '31px'}} ></img></Item>
+                    <Item><img src={Facebook} style={{ height: '30px', width: '31px' }} ></img></Item>
                   </Grid>
                   <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item><img src={linkedin} style={{height: '30px', width: '31px'}} ></img></Item>
+                    <Item><img src={linkedin} style={{ height: '30px', width: '31px' }} ></img></Item>
                   </Grid>
                   <Grid item xs={2.7} md={3} sm={2.2}>
-                    <Item><img src={GitHub} style={{height: '32px', width: '36px'}} ></img></Item>
+                    <Item><img src={GitHub} style={{ height: '32px', width: '36px' }} ></img></Item>
                   </Grid>
-                 
+
                   <Grid item xs={2.7} md={3} sm={2.2}>
-                    <Item><img src={Apple} style={{height: '30px', width: '45px'}} ></img></Item>
+                    <Item><img src={Apple} style={{ height: '30px', width: '45px' }} ></img></Item>
                   </Grid>
                 </Grid>
               </Box>
