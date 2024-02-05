@@ -6,8 +6,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import image from '../../src/images/image.png';
 import icons from '../../src/images/icons.png';
-
-
 const Item = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#fff0e5' : '#fff0e5',
   ...theme.typography.body2,
@@ -15,11 +13,10 @@ const Item = styled('div')(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
-
 function Herocomponent() {
   return (
-    <> 
-      <Box sx={{ flexGrow: 1, backgroundColor: '#fff0e5'}}>
+    <>
+      <Box sx={{ flexGrow: 1, backgroundColor: '#fff0e5' }}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={8}>
             <Item sx={{ marginTop: 15 }}>
@@ -30,10 +27,11 @@ function Herocomponent() {
           </Grid>
         </Grid>
         <Grid container spacing={1} justifyContent="center">
-        <Grid item xs={8}>
-            <Item sx={{marginTop:2 , marginBottom:2}}> <img src={icons} 
-            style={{ height: '30%', width: '80%' }} 
-            alt="Description" /></Item>
+          <Grid item xs={8}>
+            <Item sx={{ marginTop: 2, marginBottom: 2 }}>
+              <img src={icons}
+                style={{ height: '30%', width: '80%' }}
+                alt="Description" /></Item>
           </Grid>
         </Grid>
         <Grid container spacing={2} justifyContent="center">
@@ -42,7 +40,7 @@ function Herocomponent() {
           </Grid>
         </Grid>
       </Box>
-      
+
     </>
 
   );

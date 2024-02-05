@@ -10,10 +10,12 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Avatar from '@mui/material/Avatar';
 import SearchIcon from '@mui/icons-material/Search';
 import image from '../../src/images/image.png';
 import { Link } from 'react-router-dom';
+import { deepPurple } from '@mui/material/colors';
+import {useNavigate} from "react-router-dom";
 
 
 const pages = ['Catalog', 'Resources', 'Community','Pricing','Career Center','For Teams'];
@@ -33,22 +35,29 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  const handleCloseUserMenu = () => {
+const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  return (
+  const isTokenAvailable = localStorage.getItem('idToken');
+  const handleUserMenuClick=(event)=>{
+    setAnchorElUser(event.currentTarget);
+  };
+  const navigate = useNavigate();
+  const handleLogout =()=>{
+    localStorage.removeItem('idToken');
+    handleCloseUserMenu();
+    navigate("/login");
+  }
+return (
     <AppBar position="fixed"
     sx={{ backgroundColor: '#fff0e5' }}
     >
-      <Container maxWidth="lg">
+    <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Link to="/">
           <img src={image} style={{height: '50px', width: '108px'}} ></img>
           </Link>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -57,7 +66,7 @@ function ResponsiveAppBar() {
               onClick={handleOpenNavMenu}
               color="black"
             >
-              <MenuIcon />
+        <MenuIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -84,7 +93,6 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-         
           <Typography
             variant="h5"
             noWrap
@@ -101,8 +109,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            
-          </Typography>
+            </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -114,20 +121,39 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
+<Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Search">
-           
-              <SearchIcon sx={{color:'black'}} />
-             
-            </Tooltip>
+           <SearchIcon sx={{color:'black'}} />
+             </Tooltip>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Login">
-           <Link to = "/login">
-            <Button sx={{color:'black'}}>Login</Button>
-             </Link>
-            </Tooltip>
+            {isTokenAvailable ? (
+              // If token is available, show Avatar with Dropdown
+              <>
+                <Avatar
+                  sx={{ bgcolor: deepPurple[500], cursor: 'pointer' }}
+                  onClick={handleUserMenuClick}
+                >
+                  dl
+                </Avatar>
+                {isTokenAvailable && (
+                  <Menu
+                    anchorEl={anchorElUser}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                )}
+              </>
+            ) : (
+              // If token is not available, show Login button
+              <Tooltip title="Login">
+                <Link to="/login">
+                  <Button sx={{ color: 'black' }}>Login</Button>
+                </Link>
+              </Tooltip>
+            )}
           </Box>
         </Toolbar>
       

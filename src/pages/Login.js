@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -64,42 +65,37 @@ export default function SignIn() {
     setErrors(newErrors);
     return valid;
   };
-
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
-alert('working');
-signInWithEmailAndPassword(auth,formData.email, formData.password)
-.then((userCredential) => {
-  console.log(userCredential)
-})
-.catch((error) => {
-  console.log(error);
-  // const errorCode = error.code;
-  // const errorMessage = error.message;
-  // ..
-});
-if (validateForm()) {
-  // Perform form submission logic here
-  console.log('Form data submitted:', formData);
-  toast.success('Form submitted successfully');
-} else {
-  console.log('Form validation failed');
-  toast.error('Form validation failed');
-}
-    // if (validateForm()) {
-    //   try {
-    //     // Firebase authentication logic
-    //     const userCredential = await signInWithEmailAndPassword(auth, formData.get('email'), formData.get('password'));
-    //     const user = userCredential.user;
-    //     console.log('User logged in:', user);
-    //     // Add any further logic for successful login
-    //   } catch (error) {
-    //     console.error('Login failed:', error.message);
-    //     toast.error('Login failed. Please check your credentials.');
-    //   }
-    // } else {
-    //   console.log('Form validation failed');
-    // }
+    alert('working');
+    signInWithEmailAndPassword(auth, formData.email, formData.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(userCredential)
+        user.getIdToken().then((idToken) => {
+          if (idToken) {
+            // Store the ID token in local storage
+            localStorage.setItem('idToken', idToken);
+          }
+        });
+        navigate("/home");
+
+      })
+      .catch((error) => {
+        console.log(error);
+
+      });
+    if (validateForm()) {
+      // Perform form submission logic here
+      console.log('Form data submitted:', formData);
+      toast.success('Form submitted successfully');
+    } else {
+      console.log('Form validation failed');
+      toast.error('Form validation failed');
+    }
+
+
   };
 
   const handleChange = (event) => {
@@ -166,7 +162,7 @@ if (validateForm()) {
                       type="submit"
                       variant="contained"
                       sx={{ mt: 3, mb: 2, alignItems: 'left' }}
-                      onClick={(e)=>handleSubmit(e)}
+                      onClick={(e) => handleSubmit(e)}
                     >  Log In
                     </Button>
                   </Typography>
@@ -191,6 +187,7 @@ if (validateForm()) {
                     <Item><img src={twitter} style={{ height: '32px', width: '36px', maxWidth: '100%' }} alt="Twitter"></img></Item>
                   </Grid>
                   <Grid item xs={2.7} md={2.5} sm={2.2}>
+
                     <Item><img src={Apple} style={{ height: '30px', width: '45px', maxWidth: '100%' }} alt="Apple"></img></Item>
                   </Grid>
                 </Grid>

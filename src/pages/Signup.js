@@ -16,8 +16,8 @@ import Facebook from '../../src/images/Facebook.png';
 import linkedin from '../../src/images/linkedin.png';
 import GitHub from '../../src/images/GitHub.png';
 import Apple from '../../src/images/Apple.png';
-import {  createUserWithEmailAndPassword } from "firebase/auth";
-import {auth} from '../firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../firebase';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -83,7 +83,7 @@ export default function SignIn() {
         // const errorMessage = error.message;
         // ..
       });
-  
+
     if (validateForm()) {
       // Perform form submission logic here
       console.log('Form data submitted:', formData);
@@ -93,7 +93,7 @@ export default function SignIn() {
       toast.error('Form validation failed');
     }
   };
-  
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
