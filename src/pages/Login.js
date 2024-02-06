@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Button from '@mui/material/Button';
@@ -17,9 +17,11 @@ import twitter from '../../src/images/twitter.png';
 import Apple from '../../src/images/Apple.png';
 import Footer from "../components/Footer";
 import { Link } from 'react-router-dom';
-import { auth } from '../firebase';
+import { auth, googleAuthProvider } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
+import { signInWithPopup } from "firebase/auth"; // Correct import statement
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -34,12 +36,12 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function SignIn() {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
-  const [errors, setErrors] = React.useState({
+  const [errors, setErrors] = useState({
     email: '',
     password: '',
   });
@@ -65,6 +67,7 @@ export default function SignIn() {
     setErrors(newErrors);
     return valid;
   };
+
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -94,14 +97,25 @@ export default function SignIn() {
       console.log('Form validation failed');
       toast.error('Form validation failed');
     }
-
-
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  const [value, setValue] = useState("");
+
+  const handlegoogleClick = () => {
+    signInWithPopup(auth, googleAuthProvider).then((data) => {
+      setValue(data.user.email)
+      localStorage.setItem("email", data.user.email)
+    })
+  };
+
+  useEffect(() => {
+    setValue(localStorage.getItem("email"))
+  }, []);
 
   return (
     <>
@@ -172,7 +186,7 @@ export default function SignIn() {
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1} columns={16}>
                   <Grid item xs={2.6} md={2.5} sm={2.2}>
-                    <Item >  <img src={Google} style={{ height: '30px', width: '31px', maxWidth: '100%' }} alt="Google"></img></Item>
+                    <Item >  <img src={Google} style={{ height: '30px', width: '31px', maxWidth: '100%' }} alt="Google" onClick={handlegoogleClick} ></img></Item>
                   </Grid>
                   <Grid item xs={2.6} md={2.5} sm={2.2}>
                     <Item><img src={Facebook} style={{ height: '30px', width: '31px', maxWidth: '100%' }} alt="Facebook"></img></Item>
