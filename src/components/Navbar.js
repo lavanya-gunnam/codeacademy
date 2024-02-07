@@ -16,6 +16,8 @@ import image from '../../src/images/image.png';
 import { Link } from 'react-router-dom';
 import { deepPurple } from '@mui/material/colors';
 import {useNavigate} from "react-router-dom";
+import { signOut } from "firebase/auth"; 
+import { auth } from '../firebase';
 
 
 const pages = ['Catalog', 'Resources', 'Community','Pricing','Career Center','For Teams'];
@@ -44,7 +46,14 @@ const handleCloseUserMenu = () => {
   };
   const navigate = useNavigate();
   const handleLogout =()=>{
-    localStorage.removeItem('idToken');
+   
+    signOut(auth).then(() =>{
+      navigate("/"); 
+    }).catch((error) =>
+    {
+      console.log(error,"error")
+    })
+     localStorage.removeItem('idToken');
     handleCloseUserMenu();
     navigate("/login");
   }

@@ -17,10 +17,12 @@ import twitter from '../../src/images/twitter.png';
 import Apple from '../../src/images/Apple.png';
 import Footer from "../components/Footer";
 import { Link } from 'react-router-dom';
-import { auth, googleAuthProvider } from '../firebase';
+import { auth, googleAuthProvider,facebookAuthProvider } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { ToastContainer, toast } from 'react-toastify';
-import { signInWithPopup } from "firebase/auth"; // Correct import statement
+import {  toast } from 'react-toastify';
+import { signInWithPopup } from "firebase/auth"; 
+import { FacebookAuthProvider} from "firebase/auth";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -106,17 +108,57 @@ export default function SignIn() {
 
   const [value, setValue] = useState("");
 
-  const handlegoogleClick = () => {
-    signInWithPopup(auth, googleAuthProvider).then((data) => {
-      setValue(data.user.email)
+    const handlegoogleClick = () => {
+      signInWithPopup(auth, googleAuthProvider)
+      .then((data) => {
+        console.log("User signin succesfully",data.user.email)
+        localStorage.setItem('idToken',data.user.accessToken);
+        // console.log("this is token", idToken)
+        setValue(data.user.email)
       localStorage.setItem("email", data.user.email)
-    })
-  };
-
-  useEffect(() => {
-    setValue(localStorage.getItem("email"))
-  }, []);
-
+        navigate("/home");
+      })
+ };
+    useEffect(() => {
+      setValue(localStorage.getItem("email"))
+      
+    }, []);
+    const facebookClick = () =>{
+      signInWithPopup(auth, facebookAuthProvider)
+      .then((result) => {
+        // The signed-in user info.
+        console.log('result user',result.user)
+        const user = result.user;
+    
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        navigate("/home");
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+    
+        // ...
+      });
+    }
+    
+      // signOut(auth).then(() => {
+      //   setValue(null);
+      //   localStorage.removeItem("email");
+      //   navigate("/");
+      // }).catch((error) => {
+      //   console.log(error);
+      // });
+    
+    
   return (
     <>
       <Navbar />
@@ -189,7 +231,7 @@ export default function SignIn() {
                     <Item >  <img src={Google} style={{ height: '30px', width: '31px', maxWidth: '100%' }} alt="Google" onClick={handlegoogleClick} ></img></Item>
                   </Grid>
                   <Grid item xs={2.6} md={2.5} sm={2.2}>
-                    <Item><img src={Facebook} style={{ height: '30px', width: '31px', maxWidth: '100%' }} alt="Facebook"></img></Item>
+                    <Item><img src={Facebook} style={{ height: '30px', width: '31px', maxWidth: '100%' }} alt="Facebook" onClick={facebookClick}></img></Item>
                   </Grid>
                   <Grid item xs={2.6} md={2.5} sm={2.2}>
                     <Item><img src={linkedin} style={{ height: '30px', width: '31px', maxWidth: '100%' }} alt="LinkedIn"></img></Item>
