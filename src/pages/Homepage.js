@@ -18,14 +18,17 @@ function Homepage() {
     return (
         <>
             <Navbar />
+            
             <Box sx={{ flexGrow: 1, marginTop: 2 }}>
-                <Grid container spacing={2} justifyContent="center" sx={{ marginBottom: 2 }}>
-                    <Grid item xs={12} sm={12} md={5}>
+                <Grid container spacing={2} sx={{ marginBottom: 2}}>
+                <Grid item xs={2} md={1}>
+                                </Grid>
+                    <Grid item xs={12} sm={12} md={5} >
                         <Item sx={{ marginTop: 10 }}>
                             <Typography variant='h3' sx={{ color: 'black', fontWeight: '600' }} >Welcome To Codecademy!</Typography>
                             <Typography sx={{ color: 'black', fontSize: '2rem', fontWeight: 'bold' }} >What Do You Want To Learn About ?</Typography>
                         </Item>
-                        <Grid container spacing={2} sx={{ marginTop: 2 }}>
+                        <Grid container spacing={2} sx={{ marginTop: 1 }}>
                             <Grid item xs={6} md={5} >
                                 <Link to='/web' style={{ textDecoration: 'none' }}>
                                     <Item sx={{ color: "black", border: '1px solid black', background: '#fff', paddingY: 3 }}><Typography variant="h3">Web Development </Typography></Item></Link>
@@ -40,15 +43,16 @@ function Homepage() {
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
-                        <Item sx={{ marginTop: 9 }}>
+                        <Item sx={{ marginTop: 10}}>
                             <img src={home}
-                                style={{ height: '30%', width: '80%' }}
+                                style={{ height: '30%', width: '60%' }}
                                 alt="Description" />
                         </Item>
                         <Typography>We have hundreds of courses that cover just about everything</Typography>
                     </Grid>
                 </Grid>
             </Box>
+            
             <Footer />
         </>
     )

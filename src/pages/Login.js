@@ -129,7 +129,7 @@ export default function SignIn() {
         // The signed-in user info.
         console.log('result user',result.user)
         const user = result.user;
-    
+    localStorage.setItem('idToken',result.user.accessToken);
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;

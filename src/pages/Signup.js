@@ -17,7 +17,11 @@ import linkedin from '../../src/images/linkedin.png';
 import GitHub from '../../src/images/GitHub.png';
 import Apple from '../../src/images/Apple.png';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../firebase';
+import { auth, googleAuthProvider,facebookAuthProvider } from '../firebase';
+import { signInWithPopup } from "firebase/auth"; 
+import { FacebookAuthProvider} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -98,6 +102,50 @@ export default function SignIn() {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
+  const navigate = useNavigate();
+  const [value, setValue] = React.useState("");
+
+  const handlegoogleClick = () => {
+    signInWithPopup(auth, googleAuthProvider)
+    .then((data) => {
+      console.log("User signin succesfully",data.user.email)
+      localStorage.setItem('idToken',data.user.accessToken);
+      // console.log("this is token", idToken)
+      setValue(data.user.email)
+    localStorage.setItem("email", data.user.email)
+      navigate("/home");
+    })
+};
+ React.useEffect(() => {
+    setValue(localStorage.getItem("email"))
+    
+  }, []);
+  const facebookClick = () =>{
+    signInWithPopup(auth, facebookAuthProvider)
+    .then((result) => {
+      // The signed-in user info.
+      console.log('result user',result.user)
+      const user = result.user;
+  localStorage.setItem('idToken',result.user.accessToken);
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+      const credential = FacebookAuthProvider.credentialFromResult(result);
+      const accessToken = credential.accessToken;
+      navigate("/home");
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = FacebookAuthProvider.credentialFromError(error);
+  
+      // ...
+    });
+  }
   return (
     <>
       <Navbar />
@@ -179,16 +227,16 @@ export default function SignIn() {
                   <Link> Terms of Service</Link> &
                   <Link>Privacy Policy.</Link>
                 </Typography>
-                <Typography sx={{ textAlign: 'left', fontWeight: '700', marginBottom: '1rem', fontSize: '1rem', marginTop: 2 }}>Or log in using: </Typography>
+                <Typography sx={{ textAlign: 'left', fontWeight: '700', marginBottom: '1rem', fontSize: '1rem', marginTop: 2 }}>Or Sign Up using: </Typography>
               </Grid>
               <Box sx={{ flexGrow: 1 }}>
 
                 <Grid container spacing={1} columns={16}>
                   <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item >  <img src={Google} style={{ height: '30px', width: '31px' }} ></img></Item>
+                    <Item >  <img src={Google} style={{ height: '30px', width: '31px' }}onClick={handlegoogleClick} ></img></Item>
                   </Grid>
                   <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item><img src={Facebook} style={{ height: '30px', width: '31px' }} ></img></Item>
+                    <Item><img src={Facebook} style={{ height: '30px', width: '31px' }}onClick={facebookClick} ></img></Item>
                   </Grid>
                   <Grid item xs={2.6} md={3} sm={2.2}>
                     <Item><img src={linkedin} style={{ height: '30px', width: '31px' }} ></img></Item>
