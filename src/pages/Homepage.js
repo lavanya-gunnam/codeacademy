@@ -30,13 +30,14 @@ function Homepage() {
                         </Item>
                         <Grid container spacing={2} sx={{ marginTop: 1 }}>
                             <Grid item xs={6} md={5} >
-                                <Link to='/web' style={{ textDecoration: 'none' }}>
+                                <Link to='/Course/web' style={{ textDecoration: 'none' }}>
                                     <Item sx={{ color: "black", border: '1px solid black', background: '#fff', paddingY: 3 }}><Typography variant="h3">Web Development </Typography></Item></Link>
                                 <Item sx={{ color: "black", border: '1px solid black', background: '#fff', marginTop: 2, paddingY: 3 }}><Typography variant="h3">Computer Science </Typography></Item>
                                 <Item sx={{ color: "black", border: '1px solid black', background: '#fff', marginTop: 2, paddingY: 3 }}><Typography variant="h3">Mobile Development </Typography></Item>
                             </Grid>
                             <Grid item xs={6} md={5}>
-                                <Item sx={{ color: "black", border: '1px solid black', background: '#fff', paddingY: 3 }}><Typography variant="h3">Data Science </Typography></Item>
+                                <Link to='/Course/datascience'>
+                                <Item sx={{ color: "black", border: '1px solid black', background: '#fff', paddingY: 3 }}><Typography variant="h3">Data Science </Typography></Item></Link>
                                 <Item sx={{ color: "black", border: '1px solid black', background: '#fff', marginTop: 2, paddingY: 3 }}><Typography variant="h3">Web Design </Typography></Item>
                                 <Item sx={{ color: "black", border: '1px solid black', background: '#fff', marginTop: 2, paddingY: 3 }}><Typography variant="h3">Artificial Intelligence </Typography></Item>
                             </Grid>

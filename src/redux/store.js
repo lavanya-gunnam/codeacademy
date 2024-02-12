@@ -10,10 +10,9 @@
 // }
 
 // export const store = createStore(rootReducer, applyMiddleware(...middleware));
-import { legacy_createStore as createStore } from 'redux';
-import rootReducer from "./reducers/rootreducer";// Assuming you have a rootReducer if there are multiple reducers
- // You can use Redux Thunk for async actions
+import { createStore } from "redux";
+import Reducer from "./reducers/reducer";
 
-const store = createStore(rootReducer);
+ const Store = createStore(Reducer);
 
-export default store;
+ export default Store;

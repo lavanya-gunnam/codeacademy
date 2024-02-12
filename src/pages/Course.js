@@ -1,7 +1,7 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid'; // Import stable Grid component
 import Navbar from '../components/Navbar';
 import { Typography } from "@mui/material";
@@ -9,11 +9,8 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import pillars from '../../src/images/pillars.png';
-
-
 const Item = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff0e5',
     ...theme.typography.body2,
@@ -31,10 +28,16 @@ const bull = (
 );
 
 
-function Webdevelopment() {
-    return (
+function Course() {
+
+    const param = useParams();
+    const routeName = param.id;
+    console.log("this is the page of ", routeName);
+
+
+    return(
         <>
-            <Navbar />
+    <Navbar />
             <Box sx={{ flexGrow: 1, marginTop: 15 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={1}>
@@ -162,7 +165,7 @@ function Webdevelopment() {
                         </Grid>
                     </Grid>
                     </Box>
-        </>
+       </>
     )
 }
-export default Webdevelopment;
+export default Course;
