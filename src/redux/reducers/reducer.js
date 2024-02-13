@@ -1,27 +1,20 @@
 
-const initialSate = {
-    data: [],
-    selectEmployeeId: null,
-}
 
-const Reducer = (state = initialSate, action) => {
-    
-    switch(action.type){
-        case 'SET_DATA' :
-            const newStateSetData = {
-                ...state,
-                data: action.payload,
-              };
-              console.log('data in reducer',newStateSetData)
-              return newStateSetData;
-        case 'SELECT_ID' :
-            return {
-                ...state,
-                selectEmployeeId : action.payload,
-            }     
-        default:
-            return state;    
+    const initialState = {
+        data:[],
     }
-}
+    const Reducer = ( state = initialState , action) => {
+            switch(action.type){
+                case 'SET_DATA' :
+                    return {
+                        ...state,
+                        data:action.payload,
+                    }
 
- export default Reducer;
+                    default :
+                    return state;
+                
+            }
+    }
+
+    export default Reducer;

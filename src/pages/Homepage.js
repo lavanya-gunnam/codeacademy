@@ -39,7 +39,7 @@ function Homepage() {
                                 <Link to='/Course/datascience'>
                                 <Item sx={{ color: "black", border: '1px solid black', background: '#fff', paddingY: 3 }}><Typography variant="h3">Data Science </Typography></Item></Link>
                                 <Item sx={{ color: "black", border: '1px solid black', background: '#fff', marginTop: 2, paddingY: 3 }}><Typography variant="h3">Web Design </Typography></Item>
-                                <Item sx={{ color: "black", border: '1px solid black', background: '#fff', marginTop: 2, paddingY: 3 }}><Typography variant="h3">Artificial Intelligence </Typography></Item>
+                                <Item sx={{ color: "black", border:  '1px solid black', background: '#fff', marginTop: 2, paddingY: 3 }}><Typography variant="h3">Artificial Intelligence </Typography></Item>
                             </Grid>
                         </Grid>
                     </Grid>

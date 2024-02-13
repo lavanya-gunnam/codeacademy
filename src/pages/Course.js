@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -11,6 +11,11 @@ import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordR
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import pillars from '../../src/images/pillars.png';
+import SetData from "../redux/actions/actionss";
+import GetData from "../redux/api/getData";
+import { connect } from "react-redux";
+
+
 const Item = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff0e5',
     ...theme.typography.body2,
@@ -28,11 +33,33 @@ const bull = (
 );
 
 
-function Course() {
+function Course({
+    data,
+    SetData,
+}) {
 
+    useEffect ( () => {
+        GettingData();
+    }, [])
+
+
+    const GettingData = async () => {
+        const gotIt = await (GetData());
+        console.log("this is api data", gotIt);
+        SetData(gotIt);
+    }
+
+    
     const param = useParams();
     const routeName = param.id;
     console.log("this is the page of ", routeName);
+
+    const OrignalData = data;
+
+    const compair = OrignalData.filter( (item) => (item.status === routeName))
+
+
+
 
 
     return(
@@ -165,7 +192,24 @@ function Course() {
                         </Grid>
                     </Grid>
                     </Box>
+                {compair.map((item => (
+                    <>
+                    <h1>{item.title}</h1>
+                    </>
+                )))}
+                    
        </>
     )
 }
-export default Course;
+
+const mapStateToProps = state => {
+    return{
+        data: state.data,
+    }
+}
+
+const mapDispatchToProps = {
+    SetData,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Course);
