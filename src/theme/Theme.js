@@ -30,8 +30,8 @@ theme.typography.h1 = {
 theme.typography.h2 = {
     fontSize: '1.37rem',
     fontWeight: '700',
-    lineHeight: '1.2',
-    fontFamily: "ADLaM Display",
+    lineHeight: '1',
+    fontFamily: "Apercu, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
     [theme.breakpoints.up("xs")]: {
         fontSize: '2rem',
         fontWeight: "500"
@@ -45,7 +45,7 @@ theme.typography.h2 = {
         fontWeight: '700'
     },
     [theme.breakpoints.up("lg")]: {
-        fontSize: '4rem',
+        fontSize: '3rem',
         fontWeight: '700'
     }
 };
@@ -53,23 +53,20 @@ theme.typography.h3 = {
     fontSize: '1.1rem',
     fontWeight: '400',
     lineHeight: '1.2',
-    fontFamily: "ADLaM Display",
+    fontFamily: "Apercu, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
     [theme.breakpoints.up("xs")]: {
         fontSize: '1rem',
-
     },
     [theme.breakpoints.up("sm")]: {
         fontSize: '1.1rem',
-
     },
     [theme.breakpoints.up("md")]: {
         fontSize: '1.1rem',
-
     },
     [theme.breakpoints.up("lg")]: {
         fontSize: '1rem',
-
     }
 };
+
 
 export default (theme);

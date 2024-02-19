@@ -45,7 +45,7 @@ function Webdevelopment() {
                     <Grid item xs={1}>
                         <Item></Item>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12} sm={6} md={3}>
                         <Item sx={{ textAlign: 'left' }}><Typography>Related topics</Typography>
                             <Typography>HTML&CSS</Typography>
                             <Typography>JavaScript</Typography>
@@ -68,7 +68,7 @@ function Webdevelopment() {
                         </Item>
 
                     </Grid>
-                    <Grid item xs={8}>
+                    {/* <Grid item  xs={10} md={9}sm={12} >
                         <Grid container spacing={3}  >
                             <Grid item xs={6} sx={{ padding: 10 }}>
                                 <Item sx={{ textAlign: 'left' }}>
@@ -129,7 +129,7 @@ function Webdevelopment() {
 
                             </Grid>
                             <Grid item xs={6} sx={{ marginTop: 12, padding: 6 }}>
-                                <Card sx={{ minWidth: 350, border: '1px solid black',paddingY:5 }}>
+                                <Card sx={{ minWidth: 350, border: '1px solid black', paddingY: 5 }}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={8}>
                                             <CardContent sx={{ textAlign: 'left' }}>
@@ -150,7 +150,7 @@ function Webdevelopment() {
 
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
             <Box sx={{ flexGrow: 1, marginTop: 9 }}>
@@ -158,15 +158,11 @@ function Webdevelopment() {
                     <Grid item ></Grid>
                     <Grid item xs={10} sx={{ textAlign: "left" }} >
                         <Typography sx={{ paddingX: 10, fontSize: "2rem" }}>Web Development courses</Typography>
-                        {/* <Grid container justifyContent="center">
-                <Grid item xs={11}>
-                    <Divider sx={{border:'1px solid black'}} />
-                </Grid>
-            </Grid> */}
+             
                     </Grid>
-                    
+
                 </Grid>
-                
+
             </Box>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={3}>
@@ -236,7 +232,7 @@ function Webdevelopment() {
                                 />
 
                             </FormGroup>
-<Divider/>
+                            <Divider />
                             <Typography>Average time to complete</Typography>
                             <FormGroup >
                                 <FormControlLabel
@@ -271,104 +267,104 @@ function Webdevelopment() {
                                 />
 
                             </FormGroup>
-                            <Divider/>
+                            <Divider />
                             <Typography>Projects</Typography>
                             <FormGroup >
-                            <FormControlLabel
+                                <FormControlLabel
                                     control={
                                         <Checkbox />
                                     }
                                     label="Practice Projects"
                                 />
-                                 <FormControlLabel
+                                <FormControlLabel
                                     control={
                                         <Checkbox />
                                     }
                                     label="Portfolio Projects"
                                 />
-                                </FormGroup>
+                            </FormGroup>
                         </Item>
 
                     </Grid>
                     <Grid item xs={8}>
                         <Grid container spacing={2}  >
-                            <Grid  xs={3}  >
+                            <Grid xs={3}  >
                                 <Item >
-                                <Card sx={{ minWidth: 275 }}>
-                                <Grid item xs={12} sx={{ backgroundColor: 'black', height: '30px', marginBottom: '10px' }}>
-                                        <Typography sx={{ textAlign: 'left',color:'white' }}>Career Path</Typography>                        </Grid>
-      <CardContent sx={{marginTop:-3,textAlign:"left"}}>
-        <Typography sx={{ fontSize: "1.5rem" }}>
-          Full-Stack Engineer
-        </Typography>
-        <Typography >
-          A full-stack engineer can get a project done from start to finish,back-end to front-end
-        </Typography>
-        <Typography sx={{ marginTop:4}} color="text.secondary">
-            includes 51 Courses
-        </Typography>
-        <Typography >
-          With Professional Certification
-        </Typography>
-        <Grid container alignItems="center" justifyContent="space-between">
-      <Typography>Beginner Friendly</Typography>
-      <Typography>150 hours</Typography>
-    </Grid>
-      </CardContent>
-      <CardActions>
-    
-      </CardActions>
-    </Card>  
+                                    <Card sx={{ minWidth: 275 }}>
+                                        <Grid item xs={12} sx={{ backgroundColor: 'black', height: '30px', marginBottom: '10px' }}>
+                                            <Typography sx={{ textAlign: 'left', color: 'white' }}>Career Path</Typography>                        </Grid>
+                                        <CardContent sx={{ marginTop: -3, textAlign: "left" }}>
+                                            <Typography sx={{ fontSize: "1.5rem" }}>
+                                                Full-Stack Engineer
+                                            </Typography>
+                                            <Typography >
+                                                A full-stack engineer can get a project done from start to finish,back-end to front-end
+                                            </Typography>
+                                            <Typography sx={{ marginTop: 4 }} color="text.secondary">
+                                                includes 51 Courses
+                                            </Typography>
+                                            <Typography >
+                                                With Professional Certification
+                                            </Typography>
+                                            <Grid container alignItems="center" justifyContent="space-between">
+                                                <Typography>Beginner Friendly</Typography>
+                                                <Typography>150 hours</Typography>
+                                            </Grid>
+                                        </CardContent>
+                                        <CardActions>
+
+                                        </CardActions>
+                                    </Card>
                                 </Item>
                             </Grid>
-                            <Grid  xs={3}>
+                            <Grid xs={3}>
                                 <Item>
-                                <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>  
+                                    <Card sx={{ minWidth: 275 }}>
+                                        <CardContent>
+                                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                                Word of the Day
+                                            </Typography>
+                                            <Typography variant="h5" component="div">
+                                                be{bull}nev{bull}o{bull}lent
+                                            </Typography>
+                                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                                adjective
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                well meaning and kindly.
+                                                <br />
+                                                {'"a benevolent smile"'}
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Button size="small">Learn More</Button>
+                                        </CardActions>
+                                    </Card>
                                 </Item>
                             </Grid>
-                            <Grid  xs={12} sm={6} md={4} lg={3.5} >
+                            <Grid xs={12} sm={6} md={4} lg={3.5} >
                                 <Item>
-                                <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card> 
+                                    <Card sx={{ minWidth: 275 }}>
+                                        <CardContent>
+                                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                                Word of the Day
+                                            </Typography>
+                                            <Typography variant="h5" component="div">
+                                                be{bull}nev{bull}o{bull}lent
+                                            </Typography>
+                                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                                adjective
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                well meaning and kindly.
+                                                <br />
+                                                {'"a benevolent smile"'}
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Button size="small">Learn More</Button>
+                                        </CardActions>
+                                    </Card>
                                 </Item>
                             </Grid>
                             <Grid item xs={6} sx={{ marginTop: 6 }}>
