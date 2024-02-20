@@ -21,7 +21,8 @@ import { auth, googleAuthProvider,facebookAuthProvider } from '../firebase';
 import { signInWithPopup } from "firebase/auth"; 
 import { FacebookAuthProvider} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-
+import Footer from "../components/Footer";
+import { Icon } from '@iconify/react';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -231,23 +232,35 @@ export default function SignIn() {
               </Grid>
               <Box sx={{ flexGrow: 1 }}>
 
-                <Grid container spacing={1} columns={16}>
+                {/* <Grid border={1} container spacing={1} columns={16}>
+                  <Grid container spacing={1} border={1}>
                   <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item >  <img src={Google} style={{ height: '30px', width: '31px' }}onClick={handlegoogleClick} ></img></Item>
+                    <Item  ><Icon icon="devicon:google" width="25" height="25" onClick={handlegoogleClick} /> </Item>
+                    
                   </Grid>
                   <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item><img src={Facebook} style={{ height: '30px', width: '31px' }}onClick={facebookClick} ></img></Item>
+                    <Item><Icon icon="logos:facebook" width="25" height="25"onClick={facebookClick} /> </Item>
                   </Grid>
                   <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item><img src={linkedin} style={{ height: '30px', width: '31px' }} ></img></Item>
+                    <Item><Icon icon="devicon:linkedin" width="25" height="25" /></Item>
                   </Grid>
                   <Grid item xs={2.7} md={3} sm={2.2}>
-                    <Item><img src={GitHub} style={{ height: '32px', width: '36px' }} ></img></Item>
+                    <Item><Icon icon="devicon:github" width="25" height="25" /></Item>
                   </Grid>
 
-                  <Grid item xs={2.7} md={3} sm={2.2}>
-                    <Item><img src={Apple} style={{ height: '30px', width: '45px' }} ></img></Item>
+                  <Grid item xs={2.8} md={3} sm={2.2}>
+                    <Item><Icon icon="logos:apple" width="25" height="25" /></Item>
                   </Grid>
+                  </Grid>
+                </Grid> */}
+                <Grid container sx={{justifyContent:'center'}}>
+                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="devicon:google" width="25" height="25" onClick={handlegoogleClick} /></Grid>
+                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="logos:facebook" width="25" height="25"onClick={facebookClick} /></Grid>
+                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="devicon:linkedin" width="25" height="25" /></Grid>
+                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="devicon:github" width="25" height="25" /></Grid>
+                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="logos:apple" width="25" height="25" /></Grid>
+             
+                  
                 </Grid>
               </Box>
               <Grid container sx={{ marginTop: 3 }}>
@@ -261,6 +274,7 @@ export default function SignIn() {
         </Container>
       </Box>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+      <Footer />
     </>
   );
 }
