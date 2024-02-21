@@ -19,7 +19,8 @@ import Footer from "../components/Footer";
 import { Link } from 'react-router-dom';
 import { auth, googleAuthProvider,facebookAuthProvider } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {  toast } from 'react-toastify';
+
+import { ToastContainer, toast } from 'react-toastify';
 import { signInWithPopup } from "firebase/auth"; 
 import { FacebookAuthProvider} from "firebase/auth";
 
@@ -73,33 +74,34 @@ export default function SignIn() {
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
-    alert('working');
-    signInWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(userCredential)
-        user.getIdToken().then((idToken) => {
-          if (idToken) {
-            // Store the ID token in local storage
-            localStorage.setItem('idToken', idToken);
+    if (validateForm()) {
+      signInWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          user.getIdToken().then((idToken) => {
+            if (idToken) {
+              localStorage.setItem('idToken', idToken);
+            }
+          });
+          
+          toast.success('Login successfully'); 
+          setTimeout(() => {
+            navigate("/home"); 
+          }, 1000);
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.code === "auth/user-not-found") {
+            toast.error('Invalid user');
+          } else {
+            toast.error('invaliduser.');
           }
         });
-        navigate("/home");
-
-      })
-      .catch((error) => {
-        console.log(error);
-
-      });
-    if (validateForm()) {
-      // Perform form submission logic here
-      console.log('Form data submitted:', formData);
-      toast.success('Form submitted successfully');
     } else {
-      console.log('Form validation failed');
       toast.error('Form validation failed');
     }
   };
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -150,13 +152,7 @@ export default function SignIn() {
       });
     }
     
-      // signOut(auth).then(() => {
-      //   setValue(null);
-      //   localStorage.removeItem("email");
-      //   navigate("/");
-      // }).catch((error) => {
-      //   console.log(error);
-      // });
+   
     
     
   return (
@@ -260,6 +256,7 @@ export default function SignIn() {
           </Box>
         </Container>
       </Box>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <Footer />
     </>
   );

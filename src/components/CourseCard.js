@@ -11,63 +11,6 @@ import { connect } from 'react-redux';
 import { GetCardData } from '../redux/api/getData';
 import { useParams } from 'react-router-dom';
 
-// const cardData = [
-//   {
-//     title: "Career Path",
-//     subTitle: "Full-Stack Engineer",
-//     description: "A full-stack engineer can get project done from start to finish.",
-//     includes: "51 Courses",
-//     certification: "Professional Certification",
-//     beginnerFriendly: "Beginner Friendly",
-//     hours: "150 hours"
-//   },
-//   {
-//     title: "Career Path",
-//     subTitle: "Front-End Engineer",
-//     description: "Front-end engineers work closely with designers to make websites beautiful.",
-//     includes: "34 Courses",
-//     certification: "Professional Certification",
-//     beginnerFriendly: "Beginner Friendly",
-//     hours: "115 hours"
-//   },
-//   {
-//     title: "Career Path",
-//     subTitle: "Back-End Engineer",
-//     description: "Back-end developers deal with the hidden processes that run behind the scenes,building APIs.",
-//     includes: "41 Courses",
-//     certification: "Professional Certification",
-//     beginnerFriendly: "Beginner Friendly",
-//     hours: "100 hours"
-//   },
-//   {
-//     title: "Career Path",
-//     subTitle: "Create a Back-End App with JavaScript",
-//     description: "Learn how to build back-end web APIs using Express.js,Node.js,SAL.",
-//     includes: "8 Courses",
-//     certification: "Professional Certification",
-//     beginnerFriendly: "Beginner Friendly",
-//     hours: "30 hours"
-//   },
-//   {
-//     title: "Career Path",
-//     subTitle: "Create a Front-End App with React",
-//     description: "Learn to build front-end web apps with javascript and React.",
-//     includes: "9 Courses",
-//     certification: "Professional Certification",
-//     beginnerFriendly: "Beginner Friendly",
-//     hours: "36 hours"
-//   },
-//   {
-//     title: "Career Path",
-//     subTitle: "Full-Stack Engineer",
-//     description: "A full-stack engineer can get a project done from start to finish, back-end to front-end.",
-//     includes: "51 Courses",
-//     certification: "Professional Certification",
-//     beginnerFriendly: "Beginner Friendly",
-//     hours: "150 hours"
-//   },
-//   // Add more data for other cards here if needed
-// ];
 
 
 
@@ -97,15 +40,19 @@ const CourseCard = ({ data2, SetData2 }) => {
   return (
     <>
       <Container maxWidth="lg">
-        <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Grid item xs={12} sm={6} md={2} style={{ textAlign: 'left' }}>
+        <Grid container spacing={2} 
+        style={{ display: 'flex', justifyContent: 'space-between' }}
+       
+        >
+          <Grid item xs={12} sm={4} md={2} 
+           sx={{ display: { xs: 'none', sm: 'none', md: 'block' }}} >
             <Typography sx={{
               fontWeight:
                 "700", fontSize: "1.125rem", lineHeight: "1.5", paddingTop: "0.1rem", paddingBottom: "o.25rem", marginTop: 1
             }}>
               Filters  <Typography component="span" sx={{ fontWeight: 400, fontSize: "1rem" }}> clearfilters.</Typography>
             </Typography>
-            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem" }}>Level</Typography>
+            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem",textAlign:'left' }}>Level</Typography>
             <FormGroup >
               <FormControlLabel
                 control={
@@ -127,7 +74,7 @@ const CourseCard = ({ data2, SetData2 }) => {
               />
             </FormGroup>
             <Divider />
-            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem" }}>Price <a href="/" style={{ textDecoration: 'none', color: "blue" }}>view plans</a></Typography>
+            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem",textAlign:'left' }}>Price <a href="/" style={{ textDecoration: 'none', color: "blue" }}>view plans</a></Typography>
             <FormGroup >
               <FormControlLabel
                 control={
@@ -144,7 +91,7 @@ const CourseCard = ({ data2, SetData2 }) => {
 
             </FormGroup>
             <Divider />
-            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem" }}>Type</Typography>
+            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem",textAlign:'left' }}>Type</Typography>
             <FormGroup >
               <FormControlLabel
                 control={
@@ -162,7 +109,7 @@ const CourseCard = ({ data2, SetData2 }) => {
 
             </FormGroup>
             <Divider />
-            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem" }}>Average time to complete</Typography>
+            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem",textAlign:'left' }}>Average time to complete</Typography>
             <FormGroup >
               <FormControlLabel
                 control={
@@ -197,7 +144,7 @@ const CourseCard = ({ data2, SetData2 }) => {
 
             </FormGroup>
             <Divider />
-            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem" }}>Projects</Typography>
+            <Typography sx={{ marginTop: 1, fontWeight: 700, fontSize: "0.875rem",textAlign:'left' }}>Projects</Typography>
             <FormGroup >
               <FormControlLabel
                 control={
@@ -214,24 +161,17 @@ const CourseCard = ({ data2, SetData2 }) => {
             </FormGroup>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={10} sx={{ marginTop: 3 }}>
+          <Grid item xs={12} sm={12} md={10} sx={{ marginTop: 3 }}>
             <Grid container spacing={2} style={{ display: 'flex' }}>
               {sixCardData.map((data, index) => (
-                <Grid item xs={12} sm={7} md={4} key={index}>
-                  <Card style={{ height: '100%' }}>
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Card style={{ height: '100%' }} sx={{'&:hover':{boxShadow: '-8px 0 0 0 rgba(0,0,0,1), 0 5px 0 0 rgba(0,0,0,1)',}}}>
                     <CardContent style={{ textAlign: 'left', backgroundColor: '#1D2340' }}>
                       <Typography variant="h5" component="h2" sx={{ fontWeight: "400", fontSize: "0.875rem", lineHeight: "0.3", color: "#F5FCFF" }}>
                         {data.title}
                       </Typography>
                     </CardContent>
-                    {/* <CardContent style={{ textAlign: 'left' }}>
-                <Typography variant="h5" component="h2" sx={{ fontWeight: "700", fontSize: "1.375rem", lineHeight: "1.3", paddingBottom: "0.5rem" }}>
-                  {data.subTitle}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p" sx={{ fontWeight: "400", fontSize: "0.875rem", lineHeight: "1.5", marginBottom: "1rem" }}>
-                  {data.description}
-                </Typography>
-              </CardContent> */}
+                    
                     <CardContent style={{ textAlign: 'left', height: '150px' }}> {/* Adjust the height value as needed */}
                       <Typography variant="h5" component="h2" sx={{ fontWeight: "700", fontSize: "1.25rem", lineHeight: "1.3", paddingBottom: "0.5rem" }}>
                         {data.subTitle}
@@ -253,33 +193,23 @@ const CourseCard = ({ data2, SetData2 }) => {
                       </span>
                       <div style={{ borderBottom: '2px dotted black', marginBottom: '0.5rem' }} />
                       <Grid container spacing={0} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Grid item xs={12} sm={6} md={1} style={{ textAlign: 'left' }}>
+                        <Grid item xs={1} sm={1} md={1} style={{ textAlign: 'left' }}>
                           <WorkspacePremiumIcon />
-                          {/* <img src={WorkspacePremiumIcon} style={{ height: '30px', width: '31px', maxWidth: '100%', margin: 1 }} alt="LinkedIn"></img> */}
+                         
                         </Grid>
-                        <Grid item xs={12} sm={6} md={1}>
+                        <Grid item xs={1} sm={1} md={1}>
                           <Typography
                             sx={{
                               fontWeight: "400",
-                              // fontSize: "0.175rem",
-                              //  lineHeight: "0.3",
-                              //   paddingTop: "0.1rem",
-                              //    paddingBottom: "o.25rem", 
-                              //    color: "blue" 
                             }}
                           >
                             {/* {data.hours} */} with
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={9}>
+                        <Grid item xs={9} sm={9} md={9}>
                           <Typography
                             sx={{
-                              fontWeight: "700",
-                              fontSize: "0.875rem",
-                              //  lineHeight: "0.3",
-                              //   paddingTop: "0.1rem",
-                              //    paddingBottom: "o.25rem", 
-                              //    color: "blue" 
+                              fontWeight: "400",
                             }}
                           >
                             {/* {data.hours} */} Professional Certification
@@ -288,21 +218,14 @@ const CourseCard = ({ data2, SetData2 }) => {
                       </Grid>
                       <div style={{ borderBottom: '1px dotted black', marginBottom: '0.5rem' }} />
                       <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Grid item xs={12} sm={6} md={8} style={{ textAlign: 'left' }}>
-                          {/* <Typography sx={{ fontWeight: "600", fontSize: "1rem", lineHeight: "0.875", paddingTop: "0.1rem", paddingBottom: "o.25rem" }}>
-                   < SignalCellularAltIcon/>
-                      {data.beginnerFriendly} */}
+                        <Grid item xs={8} sm={6} md={8} style={{ textAlign: 'left' }}>
                           <Typography sx={{ display: 'flex', alignItems: 'center', fontSize: '0.875rem', fontWeight: 600 }}> < SignalCellularAltIcon />  {data.beginnerFriendly}</Typography>
-                          {/* </Typography> */}
                         </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
+                        <Grid item xs={4} sm={6} md={4}>
                           <Typography
                             sx={{
                               fontWeight: "400",
                               fontSize: "0.875rem",
-                              //  lineHeight: "0.3",
-                              //   paddingTop: "0.1rem",
-                              //    paddingBottom: "o.25rem", 
                               color: "black"
                             }}
                           >

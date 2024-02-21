@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Card, CardContent, CardMedia, Typography, Container } from '@mui/material';
-import { blue } from '@mui/material/colors';
+import { Grid, Card,  CardMedia, Typography, Container } from '@mui/material';
+
 
 const Cards = () => {
   return (

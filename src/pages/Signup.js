@@ -10,19 +10,14 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
-import Google from '../../src/images/Google.png';
-import Facebook from '../../src/images/Facebook.png';
-import linkedin from '../../src/images/linkedin.png';
-import GitHub from '../../src/images/GitHub.png';
-import Apple from '../../src/images/Apple.png';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, googleAuthProvider,facebookAuthProvider } from '../firebase';
-import { signInWithPopup } from "firebase/auth"; 
-import { FacebookAuthProvider} from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from 'react-router-dom';
+import { auth, googleAuthProvider, facebookAuthProvider } from '../firebase';
+import { signInWithPopup,FacebookAuthProvider,createUserWithEmailAndPassword } from "firebase/auth";
+
+
 import Footer from "../components/Footer";
 import { Icon } from '@iconify/react';
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -78,21 +73,17 @@ export default function SignIn() {
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential) => {
         console.log(userCredential)
-        // Signed up 
-        // const user = userCredential.user;
-        // ...
+       
       })
       .catch((error) => {
         console.log(error);
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // ..
+       
       });
 
     if (validateForm()) {
-      // Perform form submission logic here
+     
       console.log('Form data submitted:', formData);
-      toast.success('Form submitted successfully');
+      toast.success('User sign up successfully');
     } else {
       console.log('Form validation failed');
       toast.error('Form validation failed');
@@ -108,44 +99,42 @@ export default function SignIn() {
 
   const handlegoogleClick = () => {
     signInWithPopup(auth, googleAuthProvider)
-    .then((data) => {
-      console.log("User signin succesfully",data.user.email)
-      localStorage.setItem('idToken',data.user.accessToken);
-      // console.log("this is token", idToken)
-      setValue(data.user.email)
-    localStorage.setItem("email", data.user.email)
-      navigate("/home");
-    })
-};
- React.useEffect(() => {
+      .then((data) => {
+        console.log("User signin succesfully", data.user.email)
+        localStorage.setItem('idToken', data.user.accessToken);
+        
+        setValue(data.user.email)
+        localStorage.setItem("email", data.user.email)
+        navigate("/home");
+      })
+  };
+  React.useEffect(() => {
     setValue(localStorage.getItem("email"))
-    
+
   }, []);
-  const facebookClick = () =>{
+  const facebookClick = () => {
     signInWithPopup(auth, facebookAuthProvider)
-    .then((result) => {
-      // The signed-in user info.
-      console.log('result user',result.user)
-      const user = result.user;
-  localStorage.setItem('idToken',result.user.accessToken);
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      const credential = FacebookAuthProvider.credentialFromResult(result);
-      const accessToken = credential.accessToken;
-      navigate("/home");
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = FacebookAuthProvider.credentialFromError(error);
-  
-      // ...
-    });
+      .then((result) => {
+       
+        console.log('result user', result.user)
+        const user = result.user;
+        localStorage.setItem('idToken', result.user.accessToken);
+      
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        navigate("/home");
+        
+      })
+      .catch((error) => {
+       
+        const errorCode = error.code;
+        const errorMessage = error.message;
+     
+        const email = error.customData.email;
+       
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+      });
   }
   return (
     <>
@@ -217,7 +206,7 @@ export default function SignIn() {
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2, alignItems: 'left' }}
-                      onClick={handleSubmit}  // Add this line
+                      onClick={handleSubmit}  
                     >
                       Sign up
                     </Button>
@@ -231,36 +220,18 @@ export default function SignIn() {
                 <Typography sx={{ textAlign: 'left', fontWeight: '700', marginBottom: '1rem', fontSize: '1rem', marginTop: 2 }}>Or Sign Up using: </Typography>
               </Grid>
               <Box sx={{ flexGrow: 1 }}>
-
-                {/* <Grid border={1} container spacing={1} columns={16}>
-                  <Grid container spacing={1} border={1}>
-                  <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item  ><Icon icon="devicon:google" width="25" height="25" onClick={handlegoogleClick} /> </Item>
-                    
-                  </Grid>
-                  <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item><Icon icon="logos:facebook" width="25" height="25"onClick={facebookClick} /> </Item>
-                  </Grid>
-                  <Grid item xs={2.6} md={3} sm={2.2}>
-                    <Item><Icon icon="devicon:linkedin" width="25" height="25" /></Item>
-                  </Grid>
-                  <Grid item xs={2.7} md={3} sm={2.2}>
-                    <Item><Icon icon="devicon:github" width="25" height="25" /></Item>
-                  </Grid>
-
-                  <Grid item xs={2.8} md={3} sm={2.2}>
-                    <Item><Icon icon="logos:apple" width="25" height="25" /></Item>
-                  </Grid>
-                  </Grid>
-                </Grid> */}
-                <Grid container sx={{justifyContent:'center'}}>
-                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="devicon:google" width="25" height="25" onClick={handlegoogleClick} /></Grid>
-                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="logos:facebook" width="25" height="25"onClick={facebookClick} /></Grid>
-                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="devicon:linkedin" width="25" height="25" /></Grid>
-                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="devicon:github" width="25" height="25" /></Grid>
-                  <Grid sx={{border:'1px solid black', marginRight:'10px', padding:'15px'}}><Icon icon="logos:apple" width="25" height="25" /></Grid>
-             
-                  
+                <Grid container sx={{ justifyContent: 'center' }}>
+                  {[
+                    { icon: "devicon:google", onClick: handlegoogleClick },
+                    { icon: "logos:facebook", onClick: facebookClick },
+                    { icon: "devicon:linkedin" },
+                    { icon: "devicon:github" },
+                    { icon: "logos:apple" },
+                  ].map(({ icon, onClick }, index) => (
+                    <Grid key={index} item xs={1.9} sm={2} md={2} sx={{ border: '1px solid black', marginRight: '10px', padding: '10px', background: "#ffff" }}>
+                      <Icon icon={icon} width="25" height="25" onClick={onClick} />
+                    </Grid>
+                  ))}
                 </Grid>
               </Box>
               <Grid container sx={{ marginTop: 3 }}>
