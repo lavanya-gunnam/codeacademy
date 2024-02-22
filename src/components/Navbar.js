@@ -1,57 +1,26 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import Avatar from '@mui/material/Avatar';
-import SearchIcon from '@mui/icons-material/Search';
-import { Link, useLocation } from 'react-router-dom';
-import { deepPurple } from '@mui/material/colors';
-import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase';
-import { Icon } from '@iconify/react';
-import { Divider } from '@mui/material';
-import image from '../../src/images/image.png';
-
+import controls from './Controls';
 const pages = ['Catalog', 'Resources', 'Community', 'Pricing', 'Career Center', 'For Teams'];
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const location = useLocation();
-  const navigate = useNavigate();
-
+  const [anchorElNav, setAnchorElNav] = controls.useState(null);
+  const [anchorElUser, setAnchorElUser] = controls.useState(null);
+  const location = controls.useLocation();
+  const navigate = controls.useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
   const isTokenAvailable = localStorage.getItem('idToken');
-
   const handleUserMenuClick = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -63,16 +32,15 @@ function ResponsiveAppBar() {
         console.log(error, "error");
       });
   };
-
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: '#fff0e5' }}>
-      <Container maxWidth="lg">
-        <Toolbar disableGutters>
-          <Link to="/">
-            <img src={image} style={{ height: '50px', width: '108px' }} alt="logo" />
-          </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
+    <controls.AppBar position="fixed" sx={{ backgroundColor: '#fff0e5' }}>
+      <controls.Container maxWidth="lg">
+        <controls.Toolbar disableGutters>
+          <controls.Link to="/">
+            <img src={controls.image} style={{ height: '50px', width: '108px' }} alt="logo" />
+          </controls.Link>
+          <controls.Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <controls.IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -80,9 +48,8 @@ function ResponsiveAppBar() {
               onClick={handleOpenNavMenu}
               color="black"
             >
-              <MenuIcon />
-            </IconButton>
-            <Menu
+            </controls.IconButton>
+            <controls.Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -101,78 +68,70 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                <controls.MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <controls.Typography textAlign="center">{page}</controls.Typography>
+                </controls.MenuItem>
               ))}
-            </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            </ controls.Menu>
+          </controls.Box>
+          <controls.Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
+              <controls.Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {page}
-              </Button>
+              </controls.Button>
             ))}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Search">
-              <SearchIcon sx={{ color: 'black',marginRight:2 }} />
-            </Tooltip>
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          </controls.Box>
+          <controls.Box sx={{ flexGrow: 0 }}>
+            <controls.Tooltip title="Search">
+              <controls.SearchIcon sx={{ color: 'black', marginRight: 2 }} />
+            </controls.Tooltip>
+          </controls.Box>
+          <controls.Box sx={{ flexGrow: 0 }}>
             {isTokenAvailable ? (
               <>
-                <Avatar
-                  sx={{ bgcolor: deepPurple[500], cursor: 'pointer' }}
+                <controls.Avatar
+                  sx={{ bgcolor: controls.deepPurple[500], cursor: 'pointer' }}
                   onClick={handleUserMenuClick}
                 >
                   dl
-                </Avatar>
+                </controls.Avatar>
                 {isTokenAvailable && (
-                  <Menu
+                  <controls.Menu
                     anchorEl={anchorElUser}
                     open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                      <MenuItem > <Icon icon="fluent-mdl2:profile-search" width="26" height="25" /> Profile</MenuItem>
-                      <MenuItem > <Icon icon="lets-icons:setting-line" width="27" height="25" /> Account+Billing</MenuItem>
-                      <MenuItem > <Icon icon="teenyicons:home-outline" width="28" height="25" /> My Home</MenuItem>
-                      <MenuItem > <Icon icon="lets-icons:question-light" width="29" height="25" />HelpCenter</MenuItem>
-                      <Divider/>
-                      <MenuItem   onClick={handleLogout}>Logout</MenuItem>
-            </Menu>
-                  
-                    // {settings.map((setting) => (
-                    //   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    //     {setting}
-                    //   </MenuItem>
-                    // ))}
-                  
+                    onClose={handleCloseUserMenu}>
+                    <controls.MenuItem > <controls.Icon icon="fluent-mdl2:profile-search" width="26" height="25" /> Profile</controls.MenuItem>
+                    <controls.MenuItem > <controls.Icon icon="lets-icons:setting-line" width="27" height="25" /> Account+Billing</controls.MenuItem>
+                    <controls.MenuItem > <controls.Icon icon="teenyicons:home-outline" width="28" height="25" /> My Home</controls.MenuItem>
+                    <controls.MenuItem > <controls.Icon icon="lets-icons:question-light" width="29" height="25" />HelpCenter</controls.MenuItem>
+                    <controls.Divider />
+                    <controls.MenuItem onClick={handleLogout}>Logout</controls.MenuItem>
+                  </controls.Menu>
                 )}
               </>
             ) : (
               location.pathname === '/login' ? (
-                <Tooltip title="Sign Up">
-                  <Link to="/signup">
-                    <Button sx={{ color: 'white',background:'blue' }}>Sign Up</Button>
-                  </Link>
-                </Tooltip>
+                <controls.Tooltip title="Sign Up">
+                  <controls.Link to="/signup">
+                    <controls.Button sx={{ color: 'white', background: 'blue' }}>Sign Up</controls.Button>
+                  </controls.Link>
+                </controls.Tooltip>
               ) : (
-                <Tooltip title="Login">
-                  <Link to="/login">
-                    <Button sx={{ color: 'black' }}>Login</Button>
-                  </Link>
-                </Tooltip>
+                <controls.Tooltip title="Login">
+                  <controls.Link to="/login">
+                    <controls.Button sx={{ color: 'black' }}>Login</controls.Button>
+                  </controls.Link>
+                </controls.Tooltip>
               )
             )}
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+          </controls.Box>
+        </controls.Toolbar>
+      </controls.Container>
+    </controls.AppBar>
   );
 }
 
