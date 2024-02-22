@@ -30,9 +30,15 @@ import { Icon } from '@iconify/react';
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded';
 import pillars from '../../src/images/pillars.png';
 import GetData from "../redux/api/getData";
+import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import { ToastContainer, toast } from 'react-toastify';
 
 const controls = {
-
+  toast,
+  ToastContainer,
+  Paper,
+  TextField,
     MenuIcon,
     GetData,    
     pillars,

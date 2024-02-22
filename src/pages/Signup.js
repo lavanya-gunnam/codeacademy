@@ -1,42 +1,18 @@
 import * as React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import { Link,useNavigate } from 'react-router-dom';
 import { auth, googleAuthProvider, facebookAuthProvider } from '../firebase';
-import { signInWithPopup,FacebookAuthProvider,createUserWithEmailAndPassword } from "firebase/auth";
-
-
+import { signInWithPopup, FacebookAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
+import controls from "../components/Controls";
 import Footer from "../components/Footer";
-import { Icon } from '@iconify/react';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  border: '1px solid black',
-  color: theme.palette.text.secondary,
-  [theme.breakpoints.down('xs')]: {
-    textAlign: 'center',
-    marginTop: 8,
-  },
-}));
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SignIn() {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] =  controls.useState({
     email: '',
     password: '',
     conformPassword: '',
   });
-  const [errors, setErrors] = React.useState({
+  const [errors, setErrors] =controls.useState({
     email: '',
     password: '',
     conformPassword: '',
@@ -73,75 +49,65 @@ export default function SignIn() {
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential) => {
         console.log(userCredential)
-       
-      })
+ })
       .catch((error) => {
         console.log(error);
-       
-      });
-
-    if (validateForm()) {
-     
-      console.log('Form data submitted:', formData);
-      toast.success('User sign up successfully');
+ });
+ if (validateForm()) {
+ console.log('Form data submitted:', formData);
+     toast.success('User sign up successfully');
     } else {
       console.log('Form validation failed');
-      toast.error('Form validation failed');
+     toast.error('Form validation failed');
     }
   };
-
-  const handleChange = (event) => {
+const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-  const navigate = useNavigate();
-  const [value, setValue] = React.useState("");
-
-  const handlegoogleClick = () => {
+  const navigate =controls.useNavigate();
+  const [value, setValue] = controls.useState("");
+const handlegoogleClick = () => {
     signInWithPopup(auth, googleAuthProvider)
       .then((data) => {
         console.log("User signin succesfully", data.user.email)
         localStorage.setItem('idToken', data.user.accessToken);
-        
+
         setValue(data.user.email)
         localStorage.setItem("email", data.user.email)
         navigate("/home");
       })
   };
-  React.useEffect(() => {
+  controls.useEffect(() => {
     setValue(localStorage.getItem("email"))
 
   }, []);
   const facebookClick = () => {
     signInWithPopup(auth, facebookAuthProvider)
       .then((result) => {
-       
+
         console.log('result user', result.user)
         const user = result.user;
         localStorage.setItem('idToken', result.user.accessToken);
-      
+
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
         navigate("/home");
-        
+
       })
       .catch((error) => {
-       
-        const errorCode = error.code;
+const errorCode = error.code;
         const errorMessage = error.message;
-     
-        const email = error.customData.email;
-       
-        const credential = FacebookAuthProvider.credentialFromError(error);
-
-      });
+const email = error.customData.email;
+const credential = FacebookAuthProvider.credentialFromError(error);
+});
   }
   return (
     <>
       <Navbar />
-      <Box sx={{ py: 15 }}>
-        <Container maxWidth="xs">
-          <Box
+      <controls.Box sx={{ py: 15 }}>
+        <controls.Container maxWidth="xs">
+          <controls.Box
             sx={{
               marginTop: 1,
               display: 'flex',
@@ -149,12 +115,12 @@ export default function SignIn() {
               alignItems: 'left',
             }}
           >
-            <Typography fontFamily="Arial, sans-serif" sx={{ textAlign: 'left', fontWeight: '700', fontSize: '1.625rem', lineHeight: '1.5' }}>
+        <controls.Typography fontFamily="Arial, sans-serif" sx={{ textAlign: 'left', fontWeight: '700', fontSize: '1.625rem', lineHeight: '1.5' }}>
               Get started for free
-            </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              <Typography sx={{ textAlign: 'left', fontWeight: '100', fontSize: '.8rem', color: 'black', lineHeight: '1.5' }}>Email </Typography>
-              <TextField
+            </controls.Typography>
+            <controls.Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <controls.Typography sx={{ textAlign: 'left', fontWeight: '100', fontSize: '.8rem', color: 'black', lineHeight: '1.5' }}>Email </controls.Typography>
+              <controls.TextField
                 sx={{ marginTop: 0.8 }}
                 margin="normal"
                 required
@@ -168,8 +134,8 @@ export default function SignIn() {
                 error={!!errors.email}
                 helperText={errors.email}
               />
-              <Typography sx={{ textAlign: 'left', fontWeight: '100', fontSize: '.8rem', color: 'black', marginTop: '1rem' }}>Password</Typography>
-              <TextField
+              <controls.Typography sx={{ textAlign: 'left', fontWeight: '100', fontSize: '.8rem', color: 'black', marginTop: '1rem' }}>Password</controls.Typography>
+              <controls.TextField
                 sx={{ marginTop: 0.8 }}
                 margin="normal"
                 required
@@ -183,8 +149,8 @@ export default function SignIn() {
                 error={!!errors.password}
                 helperText={errors.password}
               />
-              <Typography sx={{ textAlign: 'left', fontWeight: '100', fontSize: '.8rem', color: 'black', marginTop: '1rem' }}>Conform Password</Typography>
-              <TextField
+              <controls.Typography sx={{ textAlign: 'left', fontWeight: '100', fontSize: '.8rem', color: 'black', marginTop: '1rem' }}>Conform Password</controls.Typography>
+              <controls.TextField
                 sx={{ marginTop: 0.8 }}
                 margin="normal"
                 required
@@ -198,29 +164,29 @@ export default function SignIn() {
                 error={!!errors.conformPassword}
                 helperText={errors.conformPassword}
               />
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  <Typography sx={{ textAlign: 'left', fontWeight: 700 }}>
-                    <Button
+              <controls.Grid item xs>
+                <controls.Link href="#" variant="body2">
+                  <controls.Typography sx={{ textAlign: 'left', fontWeight: 700 }}>
+                    <controls.Button
                       type="submit"
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2, alignItems: 'left' }}
-                      onClick={handleSubmit}  
+                      onClick={handleSubmit}
                     >
                       Sign up
-                    </Button>
-                  </Typography>
-                </Link>
-                <Typography sx={{ fontWeight: 400, fontSize: '0.87rem' }}>
+                    </controls.Button>
+                  </controls.Typography>
+                </controls.Link>
+                <controls.Typography sx={{ fontWeight: 400, fontSize: '0.87rem' }}>
                   By signing up for Codecademy, you agree to Codecademy's
-                  <Link> Terms of Service</Link> &
-                  <Link>Privacy Policy.</Link>
-                </Typography>
-                <Typography sx={{ textAlign: 'left', fontWeight: '700', marginBottom: '1rem', fontSize: '1rem', marginTop: 2 }}>Or Sign Up using: </Typography>
-              </Grid>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container sx={{ justifyContent: 'center' }}>
+                  <controls.Link> Terms of Service</controls.Link> &
+                  <controls.Link>Privacy Policy.</controls.Link>
+                </controls.Typography>
+                <controls.Typography sx={{ textAlign: 'left', fontWeight: '700', marginBottom: '1rem', fontSize: '1rem', marginTop: 2 }}>Or Sign Up using: </controls.Typography>
+              </controls.Grid>
+              <controls.Box sx={{ flexGrow: 1 }}>
+                <controls.Grid container sx={{ justifyContent: 'center' }}>
                   {[
                     { icon: "devicon:google", onClick: handlegoogleClick },
                     { icon: "logos:facebook", onClick: facebookClick },
@@ -228,23 +194,23 @@ export default function SignIn() {
                     { icon: "devicon:github" },
                     { icon: "logos:apple" },
                   ].map(({ icon, onClick }, index) => (
-                    <Grid key={index} item xs={1.9} sm={2} md={2} sx={{ border: '1px solid black', marginRight: '10px', padding: '10px', background: "#ffff" }}>
-                      <Icon icon={icon} width="25" height="25" onClick={onClick} />
-                    </Grid>
+                    <controls.Grid key={index} item xs={1.9} sm={2} md={2} sx={{ border: '1px solid black', marginRight: '10px', padding: '10px', background: "#ffff" }}>
+                      <controls.Icon icon={icon} width="25" height="25" onClick={onClick} />
+                    </controls.Grid>
                   ))}
-                </Grid>
-              </Box>
-              <Grid container sx={{ marginTop: 3 }}>
-                <Grid item>
+                </controls.Grid>
+              </controls.Box>
+              <controls.Grid container sx={{ marginTop: 3 }}>
+                <controls.Grid item>
                   Already have an account?
-                  <Link to="/login">{" Log in "}</Link>
-                </Grid>
-              </Grid>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+                  <controls.Link to="/login">{" Log in "}</controls.Link>
+                </controls.Grid>
+              </controls.Grid>
+            </controls.Box>
+          </controls.Box>
+        </controls.Container>
+      </controls.Box>
+      <controls.ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <Footer />
     </>
   );
