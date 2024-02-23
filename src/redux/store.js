@@ -1,6 +1,3 @@
-
-
-// import Reducer from "./reducers/reducer";
 import {createStore} from "redux"
 import rootReducer from "./reducers/rootreducer";
 

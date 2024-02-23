@@ -29,7 +29,6 @@ function ResponsiveAppBar() {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error, "error");
       });
   };
   return (
@@ -134,5 +133,4 @@ function ResponsiveAppBar() {
     </controls.AppBar>
   );
 }
-
 export default ResponsiveAppBar;

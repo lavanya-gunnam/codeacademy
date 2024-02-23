@@ -22,7 +22,7 @@ function Homepage() {
     return (
         <>
     <Navbar />
-            <controls.Box sx={{ flexGrow: 1, marginTop: 2 }}>
+            <controls.Box sx={{ flexGrow: 1, marginTop: 2,marginBottom:10}}>
                 <controls.Grid container spacing={2} sx={{ marginBottom: 2 }}>
                     <controls.Grid item xs={2} md={1}></controls.Grid>
                     <controls.Grid item xs={12} sm={12} md={5}>
@@ -46,13 +46,12 @@ function Homepage() {
                         <Item sx={{ marginTop: { xs: 0, sm: 5, md: 25, lg: 10 } }}>
                             <img src={home} style={{ height: '30%', width: '60%' }} alt="Description" />
                         </Item>
-                        <controls.Typography>We have hundreds of courses that cover just about everything</controls.Typography>
+                        <controls.Typography sx={{textAlign:"center"}}>We have hundreds of courses that cover just about everything</controls.Typography>
                     </controls.Grid>
                 </controls.Grid>
             </controls.Box>
             <Footer />
         </>
-    )
-}
-
+         )
+        }
 export default Homepage;

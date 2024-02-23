@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import { auth, googleAuthProvider, facebookAuthProvider } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
-import { FacebookAuthProvider } from "firebase/auth";
 import controls from "../components/Controls";
 export default function SignIn() {
   const [formData, setFormData] = controls.useState({
@@ -70,8 +69,7 @@ export default function SignIn() {
   const handlegoogleClick = () => {
     signInWithPopup(auth, googleAuthProvider)
       .then((data) => {
-        console.log("User signin succesfully", data.user.email)
-        localStorage.setItem('idToken', data.user.accessToken);
+      localStorage.setItem('idToken', data.user.accessToken);
         setValue(data.user.email)
         localStorage.setItem("email", data.user.email)
         navigate("/home");
@@ -86,15 +84,9 @@ export default function SignIn() {
         console.log('result user', result.user)
         const user = result.user;
         localStorage.setItem('idToken', result.user.accessToken);
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-        navigate("/home");
+       navigate("/home");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = FacebookAuthProvider.credentialFromError(error);
       });
   }
   return (
@@ -163,7 +155,7 @@ export default function SignIn() {
                 <controls.Typography sx={{ textAlign: 'left', fontWeight: '700', marginBottom: '1rem', fontSize: '1rem' }}>Or log in using: </controls.Typography>
               </controls.Grid>
               <controls.Box sx={{ flexGrow: 1 }}>
-                <controls.Grid container sx={{ justifyContent: 'center' }}>
+              <controls.Grid container sx={{ justifyContent: 'center' }}>
                   {[
                     { icon: "devicon:google", onClick: handlegoogleClick },
                     { icon: "logos:facebook", onClick: facebookClick },
@@ -171,7 +163,7 @@ export default function SignIn() {
                     { icon: "devicon:github" },
                     { icon: "logos:apple" },
                   ].map(({ icon, onClick }, index) => (
-                    <controls.Grid key={index} item xs={1.9} sm={2} md={2} sx={{ border: '1px solid black', marginRight: '10px', padding: '10px', background: "#ffff" }}>
+                    <controls.Grid key={index} item xs={1.9} sm={2} md={2} sx={{ border: '1px solid black', marginRight: '10px', padding: '10px', background: "#ffff", display: 'flex', justifyContent: 'center' }}>
                       <controls.Icon icon={icon} width="25" height="25" onClick={onClick} />
                     </controls.Grid>
                   ))}

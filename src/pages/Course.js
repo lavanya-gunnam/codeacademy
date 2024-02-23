@@ -1,5 +1,4 @@
 import React from "react";
-
 import Navbar from '../components/Navbar';
 import SetData from "../redux/actions/actionss";
 import GetData from "../redux/api/getData";
@@ -25,18 +24,15 @@ function Course({
     }, [])
     const GettingData = async () => {
         const gotIt = await (GetData());
-        console.log("this is api data", gotIt);
-        SetData(gotIt);
+         SetData(gotIt);
     }
     const param = controls.useParams();
     const routeName = param.id;
-    console.log("this is the page of ", routeName);
     const OrignalData = data;
     const compair = OrignalData.filter((item) => (item.status === routeName))
-    console.log(compair, "compair")
     return (
         <>
-            <Navbar />
+        <Navbar />
             {compair.length > 0 && (
                 < controls.Box sx={{ flexGrow: 1, marginTop: 15 }}>
                     < controls.Grid container spacing={3}>

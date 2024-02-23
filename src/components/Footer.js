@@ -2,7 +2,6 @@ import React from "react";
 import controls from './Controls';
 import { styled } from "@mui/material";
 import { Box, } from "@mui/system";
-
 const Item = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#fff0e5' : '#fff0e5',
   ...theme.typography.body2,
@@ -31,8 +30,7 @@ const Footer = () => {
       justifyContent: "center",
     },
   }));
-
-  const FooterLink = styled("span")(({ theme }) => ({
+const FooterLink = styled("span")(({ theme }) => ({
     fontSize: "1rem",
     textAlign: "center",
     color: "black",
@@ -42,9 +40,7 @@ const Footer = () => {
       color: "blue",
     },
   }));
-
-
-  return (
+return (
     <>
       <controls.Box sx={{ py: 5 }}>
         <CustomContainer>

@@ -1,18 +1,18 @@
 import * as React from 'react';
 import Navbar from '../components/Navbar';
 import { auth, googleAuthProvider, facebookAuthProvider } from '../firebase';
-import { signInWithPopup, FacebookAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithPopup,  createUserWithEmailAndPassword } from "firebase/auth";
 import controls from "../components/Controls";
 import Footer from "../components/Footer";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export default function SignIn() {
-  const [formData, setFormData] =  controls.useState({
+  const [formData, setFormData] = controls.useState({
     email: '',
     password: '',
     conformPassword: '',
   });
-  const [errors, setErrors] =controls.useState({
+  const [errors, setErrors] = controls.useState({
     email: '',
     password: '',
     conformPassword: '',
@@ -49,58 +49,47 @@ export default function SignIn() {
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential) => {
         console.log(userCredential)
- })
+      })
       .catch((error) => {
         console.log(error);
- });
- if (validateForm()) {
- console.log('Form data submitted:', formData);
-     toast.success('User sign up successfully');
+      });
+    if (validateForm()) {
+      console.log('Form data submitted:', formData);
+      toast.success('User sign up successfully');
     } else {
       console.log('Form validation failed');
-     toast.error('Form validation failed');
+      toast.error('Form validation failed');
     }
   };
-const handleChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-  const navigate =controls.useNavigate();
+  const navigate = controls.useNavigate();
   const [value, setValue] = controls.useState("");
-const handlegoogleClick = () => {
+  const handlegoogleClick = () => {
     signInWithPopup(auth, googleAuthProvider)
       .then((data) => {
         console.log("User signin succesfully", data.user.email)
         localStorage.setItem('idToken', data.user.accessToken);
-
-        setValue(data.user.email)
+setValue(data.user.email)
         localStorage.setItem("email", data.user.email)
         navigate("/home");
       })
   };
   controls.useEffect(() => {
     setValue(localStorage.getItem("email"))
-
-  }, []);
+ }, []);
   const facebookClick = () => {
     signInWithPopup(auth, facebookAuthProvider)
       .then((result) => {
-
-        console.log('result user', result.user)
+      console.log('result user', result.user)
         const user = result.user;
         localStorage.setItem('idToken', result.user.accessToken);
-
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
         navigate("/home");
-
       })
       .catch((error) => {
-const errorCode = error.code;
-        const errorMessage = error.message;
-const email = error.customData.email;
-const credential = FacebookAuthProvider.credentialFromError(error);
-});
+      });
   }
   return (
     <>
@@ -115,7 +104,7 @@ const credential = FacebookAuthProvider.credentialFromError(error);
               alignItems: 'left',
             }}
           >
-        <controls.Typography fontFamily="Arial, sans-serif" sx={{ textAlign: 'left', fontWeight: '700', fontSize: '1.625rem', lineHeight: '1.5' }}>
+            <controls.Typography fontFamily="Arial, sans-serif" sx={{ textAlign: 'left', fontWeight: '700', fontSize: '1.625rem', lineHeight: '1.5' }}>
               Get started for free
             </controls.Typography>
             <controls.Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -194,11 +183,12 @@ const credential = FacebookAuthProvider.credentialFromError(error);
                     { icon: "devicon:github" },
                     { icon: "logos:apple" },
                   ].map(({ icon, onClick }, index) => (
-                    <controls.Grid key={index} item xs={1.9} sm={2} md={2} sx={{ border: '1px solid black', marginRight: '10px', padding: '10px', background: "#ffff" }}>
+                    <controls.Grid key={index} item xs={1.9} sm={2} md={2} sx={{ border: '1px solid black', marginRight: '10px', padding: '10px', background: "#ffff", display: 'flex', justifyContent: 'center' }}>
                       <controls.Icon icon={icon} width="25" height="25" onClick={onClick} />
                     </controls.Grid>
                   ))}
                 </controls.Grid>
+
               </controls.Box>
               <controls.Grid container sx={{ marginTop: 3 }}>
                 <controls.Grid item>

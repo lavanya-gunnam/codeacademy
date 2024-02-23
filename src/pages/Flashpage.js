@@ -14,6 +14,5 @@ const Flashpage = () => {
             <Footer />
         </>
     );
-
 }
 export default Flashpage;

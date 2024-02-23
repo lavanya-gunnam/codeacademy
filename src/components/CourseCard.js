@@ -3,20 +3,18 @@ import SetData2 from '../redux/actions/actionGetData';
 import controls from './Controls';
 import { connect } from 'react-redux';
 const CourseCard = ({ data2, SetData2 }) => {
-controls.useEffect(() => {
+  controls.useEffect(() => {
     GettingData();
   }, [])
-const GettingData = async () => {
+  const GettingData = async () => {
     const gotIt = await (controls.GetCardData());
     console.log("this is api data in card component", gotIt);
     SetData2(gotIt);
   }
-const param =controls.useParams();
+  const param = controls.useParams();
   const routeName = param.id;
-  console.log("this is the page of ", routeName);
-const OrignalData = data2;
-const sixCardData = OrignalData.filter((item) => (item.status === routeName))
-  console.log(sixCardData, "compair")
+  const OrignalData = data2;
+  const sixCardData = OrignalData.filter((item) => (item.status === routeName))
   return (
     <>
       < controls.Container maxWidth="lg">
@@ -61,7 +59,6 @@ const sixCardData = OrignalData.filter((item) => (item.status === routeName))
               ))}
             </controls.FormGroup>
           </controls.Grid>
-
           <controls.Grid item xs={12} sm={12} md={10} sx={{ marginTop: 3 }}>
             <controls.Grid container spacing={2} style={{ display: 'flex' }}>
               {sixCardData.map((data, index) => (
@@ -72,8 +69,7 @@ const sixCardData = OrignalData.filter((item) => (item.status === routeName))
                         {data.title}
                       </controls.Typography>
                     </controls.CardContent>
-
-                    < controls.CardContent style={{ textAlign: 'left', height: '150px' }}> {/* Adjust the height value as needed */}
+                    < controls.CardContent style={{ textAlign: 'left', height: '150px' }}>
                       < controls.Typography variant="h5" component="h2" sx={{ fontWeight: "700", fontSize: "1.25rem", lineHeight: "1.3", paddingBottom: "0.5rem" }}>
                         {data.subTitle}
                       </controls.Typography>
@@ -81,7 +77,6 @@ const sixCardData = OrignalData.filter((item) => (item.status === routeName))
                         {data.description}
                       </controls.Typography>
                     </controls.CardContent>
-
                     < controls.CardContent style={{ textAlign: 'left' }}>
                       <div style={{ borderBottom: '2px dotted black', marginBottom: '0.5rem' }} />
                       <span style={{ display: 'inline-block' }}>
@@ -96,7 +91,6 @@ const sixCardData = OrignalData.filter((item) => (item.status === routeName))
                       < controls.Grid container spacing={0} style={{ display: 'flex', justifyContent: 'space-between' }}>
                         < controls.Grid item xs={1} sm={1} md={1} style={{ textAlign: 'left' }}>
                           <controls.WorkspacePremiumIcon />
-
                         </controls.Grid>
                         < controls.Grid item xs={1} sm={1} md={1}>
                           < controls.Typography
@@ -127,8 +121,7 @@ const sixCardData = OrignalData.filter((item) => (item.status === routeName))
                               fontSize: "0.875rem",
                               color: "black"
                             }}
-                          >
-                            {data.hours}
+                          > {data.hours}
                           </controls.Typography>
                         </controls.Grid>
                       </controls.Grid>
@@ -137,29 +130,18 @@ const sixCardData = OrignalData.filter((item) => (item.status === routeName))
                 </controls.Grid>
               ))}
             </controls.Grid>
-
           </controls.Grid>
-
         </controls.Grid>
       </controls.Container>
-
     </>
-
-
   );
 };
-
 const mapStateToProps = state => {
   return {
     data2: state.Reducer2.data2,
   }
 }
-
 const mapDispatchToProps = {
   SetData2,
 }
-
-
-
-
 export default connect(mapStateToProps, mapDispatchToProps)(CourseCard);
