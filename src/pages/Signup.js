@@ -77,7 +77,7 @@ setValue(data.user.email)
         navigate("/home");
       })
   };
-  controls.useEffect(() => {
+ controls.useEffect(() => {
     setValue(localStorage.getItem("email"))
  }, []);
   const facebookClick = () => {
